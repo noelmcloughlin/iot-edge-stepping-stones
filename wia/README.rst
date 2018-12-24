@@ -1,0 +1,64 @@
+Use Wia.io to collect and display data from the RPi
+
+Software, Hardware
+===================
+* Raspberry Pi2B/Pi3B
+* SenseHAT
+* Optionally a Pi Camera
+
+IoT Platform
+============
+
+https://wia.io
+
+Setup software
+=================
+
+* Execute command to setup the software
+
+.. code-block:: bash
+
+        ./wia/configure_wia.py
+
+Publish weather data
+====================
+The SenseHAT has temperature, pressure, and humidity sensors useful as Weather station.
+
+* Open Terminal #1 and run script to publish events to WIA-
+
+.. code-block:: bash
+
+    sudo -E ./wia/sensehat.py
+
+* WIA consumes your Pi SenseHat temp/humidity/pressure data. 
+
+.. image:: wia-dash.png
+   :scale: 25 %
+   :alt: WIA weather station dashboard
+
+Publish Photo data
+==================
+Use Wia events, commands. and flows to control SenseHat from facial expressions.
+
+* In the WIA dashboard, add two commands named 'happy-face' and 'sad-face'.
+
+* Publish photo events from your Raspiberry Pi Camera-
+
+.. code-block:: bash
+
+    curl -Ls -O https://raw.githubusercontent.com/noelmcloughlin/iot-pi-stepping-stones/master/wia/camera/local_snap.py
+    python3 ./local_snap.py
+
+* Publish photo events from your laptop-
+
+.. code-block:: bash
+
+    curl -Ls -O https://raw.githubusercontent.com/noelmcloughlin/iot-pi-stepping-stones/master/wia/camera/remote_snap.py
+    python3 ./remote_snap.py
+
+* WIA consumes your RPi Camera data.
+
+.. image:: wia-photo-event.png
+   :scale: 25 %
+   :alt: WIA photo events
+
