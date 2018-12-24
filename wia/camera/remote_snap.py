@@ -12,7 +12,7 @@ import time
 input('Hit any key to take a pic...')
 vc = cv2.VideoCapture(0)
 wia = Wia()
-wia.access_token = os.environ['WIA_ACCESS_TOKEN_SENSEHAT']
+wia.access_token = os.environ['MY_WIA_TOKEN']
 file_name='wia-pic.jpg'
 
 if vc.isOpened(): # try to get the first frame

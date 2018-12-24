@@ -6,7 +6,7 @@ from picamera import PiCamera
 
 wia = Wia()
 ## INSERT YOUR SECRET KET
-wia.access_token = os.environ['WIA_ACCESS_TOKEN_SENSEHAT']
+wia.access_token = os.environ['MY_WIA_TOKEN']
 camera = PiCamera()
 
 ## Halt execution until

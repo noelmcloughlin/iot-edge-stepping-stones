@@ -8,7 +8,7 @@ from sense_hat import SenseHat
 sense = SenseHat()
 
 wia = Wia()
-wia.access_token = os.environ['WIA_ACCESS_TOKEN_SENSEHAT']
+wia.access_token = os.environ['MY_WIA_TOKEN']
 
 while True:
     temperature=round(sense.get_temperature(),2)
