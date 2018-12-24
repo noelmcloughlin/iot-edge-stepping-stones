@@ -1,16 +1,9 @@
 #!/usr/bin/env python
 
-from subprocess import call
+import sys
+sys.path.append('../lib')
+import osutils as utils
 
-def package_install():
-    #Python modules
-    pkgs = "wia"
-    cmd = "pip "
-    add = "install "
-    for items in pkgs.split():
-        command = str(cmd) + str(add) + str(items)
-        call(command.split())
-        command = "sudo " + str(cmd) + str(add) + str(items)
-        call(command.split())
+utils.install_pip('wia')
+utils.install_nodejs()
 
-package_install()
