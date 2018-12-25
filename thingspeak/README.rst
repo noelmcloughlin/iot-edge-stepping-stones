@@ -1,4 +1,4 @@
-Use Wia.io to collect and display data from the RPi
+Use ThingSpeak to collect and analyize data from your devices.
 
 Software, Hardware
 ===================
@@ -59,5 +59,5 @@ The SenseHAT has temperature, pressure, and humidity sensors suitable for a Weat
 
 .. image:: ./pics/thingspeak-twitter.png
    :scale: 25 %
-   :alt: ThingSpeak weather station dashboard
+   :alt: ThingSpeak twitter integration
 

@@ -1,4 +1,4 @@
-Use Wia.io to collect and display data from the RPi
+Use WIA to collect and analyize data from your devices.
 
 Software, Hardware
 ===================
@@ -67,6 +67,7 @@ Use Wia events, commands. and flows to control SenseHat from facial expressions.
 .. code-block:: bash
 
     curl -Ls -O https://raw.githubusercontent.com/noelmcloughlin/iot-pi-stepping-stones/master/wia/camera/local_snap.py
+
     python3 ./local_snap.py
 
 * Publish photo events from your laptop-
@@ -74,6 +75,7 @@ Use Wia events, commands. and flows to control SenseHat from facial expressions.
 .. code-block:: bash
 
     curl -Ls -O https://raw.githubusercontent.com/noelmcloughlin/iot-pi-stepping-stones/master/wia/camera/remote_snap.py
+
     python3 ./remote_snap.py
 
 * WIA consumes your RPi Camera data.
