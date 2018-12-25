@@ -3,7 +3,7 @@ Use Blynk Mobile App to control, collect, and analyize your devices.
 Software, Hardware
 ===================
 * Blynk app on Android or IoS
-* Raspberry Pi2B/Pi3B
+* Raspberry Pi2B/Pi3B / Node Blynk library
 * Access tokens as OS environment variables
 
 IoT Platform
@@ -20,7 +20,7 @@ OS setup
 
     vi ~/.bash_profile
     ### My IoT Device Inventory
-    export BLYNK_TOKEN_SENSEHAT="9a1603382ab7432ea3b3b23980442f5b"
+    export BLYNK_TOKEN_SENSEHAT="xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     export BLYNK_TOKEN_RPI3BPLUS=""
     export MY_BLYNK_TOKEN="${BLYNK_TOKEN_SENSEHAT}"
 
@@ -31,27 +31,16 @@ OS setup
 
 .. code-block:: bash
 
-        ./wia/configure_blynk.py
+    ./configure_blynk.py
 
-Publish weather data
-====================
-The SenseHAT has temperature, pressure, and humidity sensors suitable for a Weather station.
+Create a Blynk App
+==================
+You can use Blynk to control your device using a Virtual Pin.
 
-* Open Terminal #1 and run script to publish events to your Blynk channel-
+* Execute command to start your on-device Blynk NodeJs service.
 
 .. code-block:: bash
 
-    sudo -E ./blynk/sensehat.py
+    node ./rpi2b/index.js
 
-* Blynk consumes your Pi SenseHat temp/humidity/pressure data. 
-
-.. image:: ./pics/blynk-dash.png
-   :scale: 25 %
-   :alt: Blynk weather station dashboard
-
-* Blynk has integrations with various third-party services too-
-
-.. image:: ./pics/blynk-twitter.png
-   :scale: 25 %
-   :alt: Blynk twitter integration
-
+* The Blynk App can now control your device using this Virtual Pin.

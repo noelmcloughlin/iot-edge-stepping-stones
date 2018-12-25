@@ -24,6 +24,12 @@ Gatt Service
 
 * Your PI is now BLE advertising and waiting for a device connections.
 
+* Try restart BLE if you have issues.
+
+.. code-block:: bash
+
+        ./restart_ble.py
+
 
 Testing
 =======
