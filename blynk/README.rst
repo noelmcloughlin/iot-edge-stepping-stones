@@ -22,7 +22,6 @@ OS setup
     ### My IoT Device Inventory
     export BLYNK_TOKEN_SENSEHAT="xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     export BLYNK_TOKEN_RPI3BPLUS=""
-    export MY_BLYNK_TOKEN="${BLYNK_TOKEN_SENSEHAT}"
 
     ### environment variables needed by iot-pi-stepping-stones ###
     export MY_BLYNK_TOKEN="${BLYNK_TOKEN_SENSEHAT}"
