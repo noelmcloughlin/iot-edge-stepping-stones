@@ -21,7 +21,8 @@ def install_pkg(package, os_family='debian'):
         package = [package,]
     try:
         for pkg in package.split():
-            call(['sudo', 'apt-get', 'install', '-y', package]) if os_family == 'debian'
+            if os_family == 'debian':
+                call(['sudo', 'apt-get', 'install', '-y', package])
     except:
         print("\nCannot install %s" % ''.join(package))
 
