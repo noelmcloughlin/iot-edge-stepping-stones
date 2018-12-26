@@ -7,7 +7,7 @@ After=bluetooth.service
 Type=simple
 User=root
 Group=root
-ExecStartPre=hciconfig hci0 name 'RPi3B+' || true
+ExecStartPre=hciconfig hci0 name 'RPi' || true
 ExecStart=/usr/local/ble-led-matrix-gatt-server/src/gatt-server >/tmp/ble-led-gatt.log 2>/tmp/ble-led-gatt.err
 ExecStop=killall /usr/local/ble-gatt-server/src/gatt-server
 

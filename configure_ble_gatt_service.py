@@ -70,7 +70,7 @@ shutil.move(workdir + appname, appdest)
 
 call(['sudo', 'cp', "systemd/" + svcfile, '/lib/systemd/system/'])
 try:
-    call(['sudo', 'hciconfig', 'hci0', 'name', 'rPi3B+'])
+    call(['sudo', 'hciconfig', 'hci0', 'name', 'RPi'])
     call(['sudo', 'hciconfig', 'hci0', 'leadv', '0'])
 except:
     print("\nFailed to start BLE Advertising")
