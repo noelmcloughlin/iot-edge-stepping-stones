@@ -58,7 +58,7 @@ from git import Repo
 appdesc = "BLE LED Matrix Gatt Server"
 appname = "ble-led-matrix-gatt-server"
 appdest = "/usr/local/"
-svcfile = "systemd/ble-led-gatt.service"
+svcfile = "ble-led-gatt.service"
 
 print("\nDownload %s" % appdesc)
 try:
@@ -69,5 +69,21 @@ except:
 
 Repo.clone_from("https://github.com/fxwalsh/Bluetooth-Low-Energy-LED-Matrix.git", appname)
 shutil.move(workdir + appname, appdest)
-call(['sudo', 'cp', svcfile, '/lib/systemd/system/'])
+
+call(['sudo', 'cp', "systemd/" + svcfile, '/lib/systemd/system/'])
+try:
+    call(['sudo', 'hciconfig', 'hci0', 'leadv', '0'])
+except:
+    print("\nFailed to start BLE Advertising")
+    exit(1)
+
+try:
+    call(['sudo', 'systemctl', 'enable', svcfile])
+    call(['sudo', 'systemctl', 'start', svcfile])
+except:
+    call(['sudo', 'systemctl', 'start', svcfile])
+    print("\nFailed to start %s" % svcfile)
+    exit(1)
+
+exit(0)
 
