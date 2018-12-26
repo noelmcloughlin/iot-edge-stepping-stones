@@ -30,10 +30,8 @@ try:
 except:
     output = "Bluetooth: 1.0"
 
-#Install packages
-#package_install()
-
 if output.split()[1] != str(wanted_version):
+    package_install()
     print("\nInstall BlueZ %s" % wanted_version)
     call(["sudo", "apt-get", "update"])
     call("rm -fr  bluez-*", shell=True)
@@ -60,7 +58,7 @@ appname = "ble-led-matrix-gatt-server"
 appdest = "/usr/local/"
 svcfile = "ble-led-gatt.service"
 
-print("\nDownload %s" % appdesc)
+print("\nSetup %s" % appdesc)
 try:
     shutil.rmtree(appdest + appname, True)
     shutil.rmtree(workdir + appname, True)
@@ -79,6 +77,7 @@ except:
     exit(1)
 
 try:
+    call(['sudo', 'systemctl', 'daemon-reload'])
     call(['sudo', 'systemctl', 'enable', svcfile])
     call(['sudo', 'systemctl', 'start', svcfile])
 except:
