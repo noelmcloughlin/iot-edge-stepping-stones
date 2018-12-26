@@ -1,7 +1,8 @@
 # iot-ble-gatt-server
 Adding Bluetooth Low Energy LED Matrix Gatt Server service for IoT
 
-** Instructions **
+Instructions
+============
 
 * Clone this repo
 
@@ -19,6 +20,7 @@ Adding Bluetooth Low Energy LED Matrix Gatt Server service for IoT
 
 * Your PI is now BLE advertising and waiting for a device connections.
 
-** Testing **
+Testing
+=======
 
-Verified on Rasbian on Raspberry Pi 3 B+
+Verified on Rasbian on RaspberryPi 3B+ with LightBlue Explorer Android app
