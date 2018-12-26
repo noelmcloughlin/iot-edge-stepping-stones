@@ -17,14 +17,4 @@ Rasbian on Raspberry Pi 3 B+
 
         ./configure_ble_gatt_service.py
 
-* Start the service
-
-.. code-block:: bash
-
-        sudo systemctl start ble-led-gatt.service
-
 * Your PI is now BLE advertising and waiting for a device connections.
-
-
-
-
