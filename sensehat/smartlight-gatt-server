@@ -64,6 +64,68 @@ class LightColourUserDescription(Descriptor):
             raise NotPermittedException()
         self.value = value
 
+class EnvironmentService(Service):
+
+    ENV_UUID = '181a'
+
+    def __init__(self, bus, index):
+        Service.__init__(self, bus, index, self.ENV_UUID, True)
+        self.add_characteristic(TemperatureCharacteristic(bus, 0, self))
+
+class TemperatureCharacteristic(Characteristic):
+    TEMP_UUID = '2a6e'
+
+    def __init__(self, bus, index, service):
+        Characteristic.__init__(
+                self, bus, index,
+                self.TEMP_UUID,
+                ['read', 'notify'],
+                service)
+        self.notifying = False
+        self.temp = temp_sint16(sense.get_temperature())
+        GObject.timeout_add(1000, self.get_temp)
+
+    def notify_temp(self):
+        if not self.notifying:
+            return
+        self.PropertiesChanged(
+                GATT_CHRC_IFACE,
+                                { 'Value': self.temp }, [])
+        print('temp notify: ' + repr(self.temp))
+        return self.notifying
+
+    def get_temp(self):
+        self.temp = temp_sint16(sense.get_temperature())
+        if not self.notifying:
+            return True
+        self.notify_temp()
+        return True
+
+    def ReadValue(self, options):
+        self.get_temp()
+        print('temp read: ' + repr(self.temp))
+        return self.temp
+
+    def StartNotify(self):
+        if self.notifying:
+            print('Already notifying, nothing to do')
+            return
+        self.notifying = True
+
+    def StopNotify(self):
+        if not self.notifying:
+            print('Not notifying, nothing to do')
+            return
+        self.notifying = False
+
+## Utility function to convert temp value to 16 bit int value, preserving 2 decimal places
+def temp_sint16(value):
+    answer = []
+    value_int16=int(value * 100).to_bytes(2, byteorder='little', signed=True)
+    for bytes in value_int16:
+        answer.append(dbus.Byte(bytes))
+    return answer
+
 def main():
     global mainloop
 
@@ -82,6 +144,7 @@ def main():
 
     app = Application(bus)
     app.add_service(SmartLightService(bus, 0))
+    app.add_service(EnvironmentService(bus, 1))
 
     mainloop = GObject.MainLoop()
 
