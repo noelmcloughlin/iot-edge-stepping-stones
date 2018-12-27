@@ -23,4 +23,6 @@ Instructions
 Testing
 =======
 
-Verified on Rasbian on RaspberryPi 3B+ with LightBlue Explorer Android app
+Verified with LightBlue Explorer Android App on-
+- Rasbian on RaspberryPi 2B+
+- Rasbian on RaspberryPi 3B+

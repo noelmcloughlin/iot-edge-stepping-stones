@@ -23,14 +23,16 @@ def package_install():
         
 ## Get bluetooth version
 wanted_version = "5.50"
+output = "Bluetooth: 1.0"
 workdir = str(os.getcwd()) + "/"
 try:
     p = Popen(['bluetoothctl', '-v'], stdout=PIPE, stderr=PIPE)
     output, err = p.communicate()
+    output = output.split()[1]
 except:
-    output = "Bluetooth: 1.0"
+    output = "1.0"
 
-if output.split()[1] != str(wanted_version):
+if output != wanted_version:
     package_install()
     print("\nInstall BlueZ %s" % wanted_version)
     call(["sudo", "apt-get", "update"])
