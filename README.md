@@ -24,5 +24,5 @@ Testing
 =======
 
 Verified with LightBlue Explorer Android App on-
-- Rasbian on RaspberryPi 2B+
-- Rasbian on RaspberryPi 3B+
+- Rasbian on RaspberryPi 2B+, USB BT (BLE advertising issues), SenseHat.
+- Rasbian on RaspberryPi 3B+, UART BT.
