@@ -32,7 +32,7 @@ The SenseHAT has temperature, pressure, and humidity sensors useful as Weather s
 
 * WIA consumes your Pi SenseHat temp/humidity/pressure data. 
 
-.. image:: wia-dash.png
+.. image:: ./pics/wia-dash.png
    :scale: 25 %
    :alt: WIA weather station dashboard
 
@@ -58,7 +58,7 @@ Use Wia events, commands. and flows to control SenseHat from facial expressions.
 
 * WIA consumes your RPi Camera data.
 
-.. image:: wia-photo-event.png
+.. image:: ./pics/wia-photo-event.png
    :scale: 25 %
    :alt: WIA photo events
 
