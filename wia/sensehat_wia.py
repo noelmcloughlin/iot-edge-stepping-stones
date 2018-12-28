@@ -5,7 +5,11 @@ import os
 from time import sleep
 from wia import Wia
 from sense_hat import SenseHat
-sense = SenseHat()
+try:
+    sense = SenseHat()
+except:
+    print("\nCannot detect SenseHat, quitting")
+    exit(1)
 
 wia = Wia()
 wia.access_token = os.environ['MY_WIA_TOKEN']
