@@ -3,12 +3,15 @@
 import os, sys, shutil
 from subprocess import call
 
+import sys
+sys.path.append('../lib')
+import osutils as utils
+
 appname = "ble-led-matrix-gatt-server"
 appdest = "/usr/local/"
 
 def deploy:
-    workdir = str(os.getcwd()) + "/"
-    shutil.copy(workdir + "smartlight-gatt-server", appdest + appname + "/gatt-server")
-    call(['sudo', workdir + '../restart_ble.py'])
+    shutil.copy(utils.workdir + "smartlight-gatt-server", appdest + appname + "/gatt-server")
+    call(['sudo', utils.workdir + '../restart_ble.py'])
 
-deploy
+deploy()

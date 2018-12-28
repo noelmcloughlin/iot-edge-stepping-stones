@@ -2,24 +2,30 @@
 from subprocess import call
 import os
 
+workdir = str(os.getcwd()) + "/"
+
 def is_executable(package):
     return call([package, "-v"])
         
 def install_pip(package):
+    if isinstance(package, basestring):
+        package = [package,]
     try:
-        call(['pip', 'install', package])
+        for pkg in package.split():
+            call(['pip', 'install', pkg])
     except:
-        print("\nCannot find %s to install" % package)
+        print("\nCannot install %s" % ''.join(package))
 
 def install_pkg(package, os_family='debian'):
-    if os_family == 'debian':
-        try:
-            call(['sudo', 'apt-get', 'install', '-y', package])
-        except:
-            print("\nCannot find %s to install" % package)
+    if isinstance(package, basestring):
+        package = [package,]
+    try:
+        for pkg in package.split():
+            call(['sudo', 'apt-get', 'install', '-y', package]) if os_family == 'debian'
+    except:
+        print("\nCannot install %s" % ''.join(package))
 
-def install_nodejs(os_family='debian'):
-    version = "11"
+def install_nodejs(version='11', os_family='debian'):
     if os_family == 'debian':
         url = "https://deb.nodesource.com/setup_%s.x" % version
         try:
@@ -27,4 +33,4 @@ def install_nodejs(os_family='debian'):
             call(['sudo', '-E', 'bash', os.path.basename(url)])
             install_pkg('nodejs')
         except:
-            print("\nCannot install nodejs")
+            print("\nCannot install nodejs %s" % version)

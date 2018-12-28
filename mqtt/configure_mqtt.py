@@ -8,8 +8,8 @@ def package_install():
     pkgs = "mosquitto sense-hat mosquitto-clients"
     cmd = "sudo apt "
     add = "install -y "
-    for items in pkgs.split():
-        command = str(cmd) + str(add) + str(items)
+    for item in pkgs.split():
+        command = str(cmd) + str(add) + str(item)
         call(command.split())
 
     #Python modules

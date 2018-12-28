@@ -3,19 +3,19 @@ Use WIA to collect and analyize data from your devices.
 Software, Hardware
 ===================
 * Raspberry Pi2B/Pi3B
-* SenseHAT
-* Optionally a Pi Camera
-* Access Token as environment variables
+* Pi SenseHAT
+* Pi Camera is optional
+* Access tokens as OS environment variables
 
 IoT Platform
 ============
 
 https://wia.io
 
-Setup software
-=================
+OS setup
+========
 
-* Setup your IoT platform Access Tokens environment how you like. This example uses `~/.bash_profile` to manage the variables. As aside, use `sudo -E` when a script need elevated privledges.
+* Setup your iot platform access tokens how you like. This example uses `~/.bash_profile` to manage as environment variables. Remember to use `sudo -E` for scripts needing elevated privledges.
 
 .. code-block:: bash
 
@@ -24,15 +24,9 @@ Setup software
     export WIA_TOKEN_SENSEHAT="d_sk_xxxxxxxxxxxxxxxxxxxxxxxpi"
     export WIA_TOKEN_RPI3BPLUS="d_sk_yyyyyyyyyyyyyyyyyyyyyyyy"
     export MY_WIA_TOKEN="${WIA_TOKEN_SENSEHAT}"
-    export THINGSPEAK_RTOKEN_SENSEHAT="wwwwwwwwwwwwwww"
-    export THINGSPEAK_WTOKEN_SENSEHAT="xxxxxxxxxxxxxxx"
-    export THINGSPEAK_RTOKEN_RPI3BPLUS="yyyyyyyyyyyyyy"
-    export THINGSPEAK_WTOKEN_RPI3BPLUS="zzzzzzzzzzzzzz"
 
     ### environment variables needed by iot-pi-stepping-stones ###
     export MY_WIA_TOKEN="${WIA_TOKEN_SENSEHAT}"
-    export MY_THINGSPEAK_RTOKEN="${THINGSPEAK_RTOKEN_SENSEHAT}"
-    export MY_THINGSPEAK_WTOKEN="${THINGSPEAK_WTOKEN_SENSEHAT}"
 
 * Execute command to setup the software
 
