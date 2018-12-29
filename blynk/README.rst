@@ -30,7 +30,7 @@ OS setup
 
 .. code-block:: bash
 
-    ./configure_blynk.py
+    ./configure_node.py
 
 
 Raspberry Pi virtual pin
@@ -42,7 +42,7 @@ Use Blynk to control your device using a Virtual Pin.
 
 .. code-block:: bash
 
-    ./configure_nodejs.py pi/2b/index.js
+    ./configure_blynk.py pi/2b/index.js
 
 * Start nodejs service on-device:
 
@@ -75,7 +75,7 @@ Blynk app can access phones sensors such as light, and accelerometer.
 
 .. code-block:: bash
 
-    ./configure_nodejs.py sensehat/2vpin
+    ./configure_blynk.py sensehat/2vpin
 
 * Run the node app again:
 
@@ -110,7 +110,7 @@ BlynkApp Webhook widget can communicate with 3rd party services like ThingSpeak.
 
 .. code-block:: bash
 
-    ./configure_nodejs.py sensehat/3vpin
+    ./configure_blynk.py sensehat/3vpin
 
 * Run node app again:
 
@@ -154,7 +154,7 @@ BlynkApp Webhook widget can communicate with 3rd party services like WIA.
 
 .. code-block:: bash
 
-    ./configure_nodejs.py sensehat/4vpin
+    ./configure_blynk.py sensehat/4vpin
 
 * Run node app again:
 
