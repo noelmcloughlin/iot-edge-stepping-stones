@@ -56,9 +56,7 @@ Use Blynk to control your device using a Virtual Pin.
    :scale: 10 %
    :alt: BlynkApp output
 
-* Interact with your device from your Blynk app.
-
-* The service reads events on V1, and "sends" data back to virtual pin V2.
+* Go to BlynkApp and Interact with your device using this virtual pin.
 
 
 Phone Sensors Blynk App
