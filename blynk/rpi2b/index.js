@@ -5,7 +5,7 @@
 //###########################################
 
 var Blynk = require("blynk-library");
-var AUTH = process.env.MY_BLYNK_TOKEN;
+var AUTH = process.env.MY_BLYNK_TOKEN; 
 
 var blynk = new Blynk.Blynk(AUTH);
 var v1 = new blynk.VirtualPin(1);

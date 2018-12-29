@@ -39,14 +39,14 @@ OS setup
     ./configure_blynk.py -d rpi2b
 
 .. image:: ./pics/npm-installed.png
-   :scale: 25 %
+   :scale: 10 %
    :alt: npm package installed
 
-Create a Blynk App
-==================
+Simple Blynk App
+=================
 Use Blynk to control your device using a Virtual Pin.
 
-* Execute command to start your on-device Blynk NodeJs service.
+* Start your on-device Blynk NodeJs service-
 
 .. code-block:: bash
 
@@ -55,7 +55,34 @@ Use Blynk to control your device using a Virtual Pin.
 * You should see output like the following-
 
 .. image:: ./pics/blynk-ready.png
-   :scale: 25 %
+   :scale: 10 %
    :alt: npm package installed
 
-* Your BlynkApp (Android/iOS) can control your device with this Virtual Pin.
+* Interact with the device from your Blynk app (Android/iOS).
+
+SenseHat Blynk App
+==================
+
+* Kill the previous NodeJs service.
+
+.. code-block:: bash
+
+    Ctrl+C
+
+* Start your on-device Blynk NodeJs service for SenseHat-
+
+.. code-block:: bash
+
+    node ./sensehat/index.js
+
+* The service "listens" for reads events on virtual pin V1, and returns SenseHAT temperature to virtual pin V2. Interact with the device from your Blynk app (Android/iOS).
+
+Phone Sensors Blynk App
+=======================
+
+* Kill the previous NodeJs service.
+
+.. code-block:: bash
+
+    Ctrl+C
+

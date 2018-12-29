@@ -1,4 +1,4 @@
-# iot-pi-stepping-stones
+# iot-edge-stepping-stones
 
 Collection of IoT solutions and ideas (MQTT, GATT, BLE, BT, PI, SENSORS, IOT PLATFORMS) for Pi and other devices.
 

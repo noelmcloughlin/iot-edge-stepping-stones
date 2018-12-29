@@ -20,13 +20,12 @@ def install_pip(package):
     except:
         print("\nCannot install %s" % ''.join(package))
 
-def install_pkg(package, os_family='debian'):
+def install_pkg(package):
     if isinstance(package, basestring):
         package = [package,]
     try:
         for pkg in package:
-            if os_family == 'debian':
-                call(['sudo', 'apt-get', 'install', '-y', pkg])
+            call(['sudo', 'apt-get', 'install', '-y', pkg])
     except:
         print("\nCannot install %s" % ''.join(package))
 
@@ -37,5 +36,4 @@ def install_nodejs(version='11'):
         call(['sudo', '-E', 'bash', os.path.basename(url)])
     except:
         print("\nThe script %s failed" % os.path.basename(url))
-    print("\nhere")
     install_pkg('nodejs')

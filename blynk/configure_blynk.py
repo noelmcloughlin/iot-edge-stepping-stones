@@ -22,14 +22,17 @@ def main(argv):
             print 'test.py -i <inputfile> -o <outputfile>'
             sys.exit()
 
-    if not utils.is_executable('/usr/bin/nodejs'):
-        utils.install_nodejs('6')   ## version six works for Blynk anyway
-    utils.install_pkg('build-essential', 'npm')
+    call(['sudo', 'apt-get', 'purge', 'node', 'nodejs', 'node.js', '-y'])
+    call(['sudo', 'apt-get', 'autoremove', '-y'])
+    utils.install_nodejs('6')   ## version six works for Blynk anyway
+    utils.install_pkg(['build-essential', 'npm'])
+    os.chdir(utils.workdir + "/" + dir)
+    call(['npm', 'install', 'blynk-library', '--save', '--unsafe-perm'])
 
     try:
-        os.chdir(utils.workdir + "./" + dir)
-        call(['sudo', 'npm', 'install', 'blynk-library', '--save', '--unsafe-perm'])
-        call(['sudo', 'npm', 'install', 'onoff', '--save', '--unsafe-perm'])
+        call(['npm', 'install', 'blynk-library', '--save', '--unsafe-perm'])
+        call(['npm', 'install', 'onoff', '--save', '--unsafe-perm'])
+        call(['npm', 'install', 'node-sense-hat', '--save', '--unsafe-perm'])
         os.chdir(utils.workdir)
     except:
         print("\nFailed to install node packages")
