@@ -26,55 +26,61 @@ OS setup
     ### environment variables needed by iot-pi-stepping-stones ###
     export MY_BLYNK_TOKEN="${BLYNK_TOKEN_SENSEHAT}"
 
-* Run script to setup each device (represented by subdir containing code)
+* Run script to setup each device (subdir containing code)
 
 .. code-block:: bash
 
-    ./configure_blynk.py -d rpi2b
-    ./configure_blynk.py -d sensehat/2vpin
-    ./configure_blynk.py -d sensehat/3vpin
-    ./configure_blynk.py -d sensehat/4vpin
+    ./configure_blynk.py
 
-.. image:: ./pics/npm-installed.png
-   :scale: 10 %
-   :alt: npm package installed
 
-Simple Blynk App
-=================
+Pi2B Sample App
+===============
 Use Blynk to control your device using a Virtual Pin.
 
-* Start your on-device Blynk NodeJs service-
+* Setup nodejs dependencies:
 
 .. code-block:: bash
 
-    sudo -E node ./rpi2b/index.js
+    ./configure_nodejs.py pi/2b/index.js
 
-* You should see output like the following-
+* Start nodejs service on-device:
+
+.. code-block:: bash
+
+    sudo -E node ./pi/2b/index.js
+
+* You should see output like the following:
 
 .. image:: ./pics/blynk-ready.png
    :scale: 10 %
    :alt: BlynkApp output
 
-* Interact with the device from your Blynk app (Android/iOS).
+* Interact with your device from your Blynk app.
 
-SenseHat Blynk App
-==================
 
-* Kill the previous NodeJs service.
+Pi SenseHat 2 virtual pins
+==========================
+
+* Kill the previous NodeJs service:
 
 .. code-block:: bash
 
     Ctrl+C
 
-* Start your on-device Blynk NodeJs service for SenseHat-
+* Setup nodejs dependencies:
+
+.. code-block:: bash
+
+    ./configure_nodejs.py sensehat/2vpin
+
+* Start nodejs service on-device:
 
 .. code-block:: bash
 
     sudo -E node ./sensehat/2vpin/index.js
 
-* The service "listens" for reads events on V1, and "sends"temperature to virtual pin V2.
+* The service "listens" for reads events on V1, and "sends" data back to virtual pin V2.
 
-* On BlynkApp, interact with the device.
 
 Phone Sensors Blynk App
 =======================
@@ -82,30 +88,36 @@ Blynk app can access phones sensors such as light, and accelerometer.
 
 * In BlynkApp add a "Light Sensor" widget, output to V3, to measure light intensity (lux).
 
-* kill the running node app.
+* kill the running node app:
 
 .. code-block:: bash
 
     Ctrl+C
 
-* Run the node app again.
+* Setup nodejs dependencies:
 
 .. code-block:: bash
 
-    sudo -E node ./sensehat/2vpin/index.js
+    ./configure_nodejs.py pi/2b/index.js
+
+* Run the node app again:
+
+.. code-block:: bash
+
+    sudo -E node ./sensehat/3vpin/index.js
 
 * Your RPi could perhaps display "too bright/dark" messages on the console depending on what threshold lux value triggers on/off behaviour.
 
 
-Send temperature data to Thingspeak
-====================================
+Send data to Thingspeak
+=======================
 BlynkApp Webhook widget can communicate with 3rd party services like ThingSpeak.
 
 * Go to ThingSpeak.com and create new temperature channel.
 
 * Go to BlynkApp and add "Webhook" from the widget box.
 
-* Monitor V2 and send data to Thingspeak (see: https://docs.blynk.cc/#widgets-other-webhook)
+* Monitor V2 and send data to Thingspeak (see: https://docs.blynk.cc/#widgets-other-webhook):
 
 .. image:: ./pics/blynk-webhooks.png
    :scale: 10 %
@@ -117,7 +129,13 @@ BlynkApp Webhook widget can communicate with 3rd party services like ThingSpeak.
 
     Ctrl+C
 
-* Run node app again.
+* Setup nodejs dependencies:
+
+.. code-block:: bash
+
+    ./configure_nodejs.py sensehat/3vpin
+
+* Run node app again:
 
 .. code-block:: bash
 
@@ -128,7 +146,7 @@ Send GPS data to WiA
 =====================
 BlynkApp Webhook widget can communicate with 3rd party services like WIA.
 
-* Go to BlynkApp and add "GPS Webhook" from widget box.
+* Go to BlynkApp and add "GPS Webhook" from widget box:
 
 * Monitor V4 as illustrated.
 
@@ -136,7 +154,7 @@ BlynkApp Webhook widget can communicate with 3rd party services like WIA.
    :scale: 10 %
    :alt: GPS Streaming Webhook in Wia
 
-* Ensure your WiA tokens are OS environ variables.
+* Ensure your WiA tokens are OS environ variables:
 
 .. code-block:: bash
 
@@ -155,7 +173,13 @@ BlynkApp Webhook widget can communicate with 3rd party services like WIA.
 
     Ctrl+C
 
-* Run node app again.
+* Setup nodejs dependencies:
+
+.. code-block:: bash
+
+    ./configure_nodejs.py sensehat/4vpin
+
+* Run node app again:
 
 .. code-block:: bash
 
