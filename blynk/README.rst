@@ -26,17 +26,14 @@ OS setup
     ### environment variables needed by iot-pi-stepping-stones ###
     export MY_BLYNK_TOKEN="${BLYNK_TOKEN_SENSEHAT}"
 
-* Create a subdirectory to represent your device-
-
-.. code-block:: bash
-
-    mkdir rpi2b
-
-* Run the script You should see the following output:
+* Run script to setup each device (represented by subdir containing code)
 
 .. code-block:: bash
 
     ./configure_blynk.py -d rpi2b
+    ./configure_blynk.py -d sensehat/2vpin
+    ./configure_blynk.py -d sensehat/3vpin
+    ./configure_blynk.py -d sensehat/4vpin
 
 .. image:: ./pics/npm-installed.png
    :scale: 10 %
@@ -50,7 +47,7 @@ Use Blynk to control your device using a Virtual Pin.
 
 .. code-block:: bash
 
-    node ./rpi2b/index.js
+    sudo -E node ./rpi2b/index.js
 
 * You should see output like the following-
 
@@ -73,7 +70,7 @@ SenseHat Blynk App
 
 .. code-block:: bash
 
-    node ./sensehat/index.js
+    sudo -E node ./sensehat/2vpin/index.js
 
 * The service "listens" for reads events on V1, and "sends"temperature to virtual pin V2.
 
@@ -95,7 +92,7 @@ Blynk app can access phones sensors such as light, and accelerometer.
 
 .. code-block:: bash
 
-    node ./sensehat/2vpin/index.js
+    sudo -E node ./sensehat/2vpin/index.js
 
 * Your RPi could perhaps display "too bright/dark" messages on the console depending on what threshold lux value triggers on/off behaviour.
 
@@ -124,7 +121,7 @@ BlynkApp Webhook widget can communicate with 3rd party services like ThingSpeak.
 
 .. code-block:: bash
 
-    node ./sensehat/3vpin/index.js
+    sudo -E node ./sensehat/3vpin/index.js
 
 
 Send GPS data to WiA
@@ -162,6 +159,6 @@ BlynkApp Webhook widget can communicate with 3rd party services like WIA.
 
 .. code-block:: bash
 
-    node ./sensehat/4vpin/index.js
+    sudo -E node ./sensehat/4vpin/index.js
 
 * Go to wia.io and interact with the service.
