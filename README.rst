@@ -15,6 +15,10 @@ Contents
    :scale: 25 %
    :alt: ThingSpeak weather station dashboard
 
+.. image:: ./blynk/pics/blynk-screenshot.png
+   :scale: 25 %
+   :alt: Blynk Widgets
+
 .. image:: ./thingspeak/pics/thingspeak-twitter.png
    :scale: 25 %
    :alt: ThingSpeak twitter integrqation
@@ -25,4 +29,4 @@ Contents
 
 Credits
 =======
-Thanks to Dr Frank Walsh (WIT) for inspiration and some code ;-)
+Thanks to Dr Frank Walsh (WIT) for inspiration and ideas;-)

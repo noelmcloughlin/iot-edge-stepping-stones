@@ -42,7 +42,7 @@ Use Blynk to control your device using a Virtual Pin.
 
 .. code-block:: bash
 
-    ./configure_blynk.py pi/2b/index.js
+    ./configure_blynk.py -d pi/2b
 
 * Start nodejs service on-device:
 
@@ -58,10 +58,24 @@ Use Blynk to control your device using a Virtual Pin.
 
 * Go to BlynkApp and Interact with your device using this virtual pin.
 
+Troubleshooting tip
+===================
+* Remember to run ```./configure_blynk.py -d <devicedir>``` to avoid this error:
+
+.. code-block:: bash
+
+    pi@rasppi2b:~/iot-edge-stepping-stones/blynk$ sudo -E node sensehat/3vpin/index.js 
+module.js:549
+    throw err;
+    ^
 
 Phone Sensors Blynk App
 =======================
 Blynk app can access phones sensors such as light, and accelerometer.
+
+.. image:: ./blynk/pics/blynk-screenshot.png
+   :scale: 25 %
+   :alt: Blynk Widgets
 
 * In BlynkApp add a "Light Sensor" widget, output to V3, to measure light intensity (lux).
 
@@ -75,7 +89,7 @@ Blynk app can access phones sensors such as light, and accelerometer.
 
 .. code-block:: bash
 
-    ./configure_blynk.py sensehat/2vpin
+    ./configure_blynk.py -d sensehat/2vpin
 
 * Run the node app again:
 
@@ -110,7 +124,7 @@ BlynkApp Webhook widget can communicate with 3rd party services like ThingSpeak.
 
 .. code-block:: bash
 
-    ./configure_blynk.py sensehat/3vpin
+    ./configure_blynk.py -d sensehat/3vpin
 
 * Run node app again:
 
@@ -154,7 +168,7 @@ BlynkApp Webhook widget can communicate with 3rd party services like WIA.
 
 .. code-block:: bash
 
-    ./configure_blynk.py sensehat/4vpin
+    ./configure_blynk.py -d sensehat/4vpin
 
 * Run node app again:
 
