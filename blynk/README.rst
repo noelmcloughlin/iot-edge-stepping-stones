@@ -26,11 +26,11 @@ OS setup
     ### environment variables needed by iot-pi-stepping-stones ###
     export MY_BLYNK_TOKEN="${BLYNK_TOKEN_SENSEHAT}"
 
-* Run script to setup each device (subdir containing code)
+* Optionally reinstall node.js:
 
 .. code-block:: bash
 
-    ./configure_node.py
+    ./reinstall_node.py
 
 
 Raspberry Pi virtual pin
