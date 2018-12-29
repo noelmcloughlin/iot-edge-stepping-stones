@@ -22,8 +22,8 @@ def main(argv):
             print 'test.py -i <inputfile> -o <outputfile>'
             sys.exit()
 
+    os.chdir(utils.workdir + "/" + dir)
     try:
-        os.chdir(utils.workdir + "/" + dir)
         call(['npm', 'install', 'blynk-library', '--save', '--unsafe-perm'])
         call(['npm', 'install', 'onoff', '--save', '--unsafe-perm'])
         call(['npm', 'install', 'node-sense-hat', '--save', '--unsafe-perm'])

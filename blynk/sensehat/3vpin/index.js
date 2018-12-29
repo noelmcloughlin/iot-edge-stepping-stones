@@ -10,9 +10,12 @@ var sense = require("node-sense-hat");
 
 var imu = sense.Imu;
 var IMU = new imu.IMU();
-var AUTH = '"' + process.env.MY_BLYNK_TOKEN + '"';
 
-var blynk = new Blynk.Blynk(AUTH);
+// Workaround issue #7
+//var blynk = new Blynk.Blynk(process.env.MY_BLYNK_TOKEN);
+var blynk = new Blynk.Blynk(process.env.MY_BLYNK_TOKEN, options = {
+  connector : new Blynk.TcpClient()
+});
 
 //### virtual pin #one
 var v1 = new blynk.VirtualPin(1);

@@ -11,10 +11,14 @@ var wia = require("wia");
 
 var imu = sense.Imu;
 var IMU = new imu.IMU();
-var AUTH = '"' + process.env.MY_BLYNK_TOKEN + '"';
-var wia = require('wia')('"' + process.env.MY_WIA_TOKEN + '"');
 
-var blynk = new Blynk.Blynk(AUTH);
+// Workaround issue #7
+//var blynk = new Blynk.Blynk(process.env.MY_BLYNK_TOKEN);
+var blynk = new Blynk.Blynk(process.env.MY_BLYNK_TOKEN, options = {
+  connector : new Blynk.TcpClient()
+});
+
+var wia = require('wia')('"' + process.env.MY_WIA_TOKEN + '"');
 
 //### virtual pin #one
 var v1 = new blynk.VirtualPin(1);
