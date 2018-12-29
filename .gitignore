@@ -1,1 +1,6 @@
 *.pyc
+**/node_modules
+**/package.json
+**/package-lock.json
+**/setup_?.x*
+**/setup_??.x*
