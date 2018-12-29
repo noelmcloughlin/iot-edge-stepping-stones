@@ -2,6 +2,7 @@
 // Connect SenseHat with two virtual pins.
 // One "listens" for reads events.
 // Two returns SenseHat temperature.
+// Two returns SenseHat lux
 //######################################
 var Blynk = require("blynk-library");
 
@@ -19,6 +20,9 @@ var v1 = new blynk.VirtualPin(1);
 //### virtual pin #two
 var v2 = new blynk.VirtualPin(2);
 
+//### virtual pin #three
+var v3 = new blynk.VirtualPin(3);
+
 var white = [255, 255, 255];
 sense.Leds.clear();
 
@@ -32,4 +36,10 @@ v2.on('read', function() {
   IMU.getValue(function (e, data) {
      v2.write(data.temperature);
   })
+});
+
+v3.on('write', function(param) {
+  //check if it's too dark!
+  if (param[0]<50){console.log("It's a bit dark")}
+  //You could do something interesting here like turn on lights!
 });

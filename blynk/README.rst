@@ -79,10 +79,53 @@ SenseHat Blynk App
 
 Phone Sensors Blynk App
 =======================
+Blynk app can access phones sensors such as light, and accelerometer. A webhook could push collected light sensor data to other IoT platforms via via HTTPS. 
 
-* Kill the previous NodeJs service.
+* In BlynkApp add a "Light Sensor" widget, output to V3.
+
+* In BlynkApp run "Light Sensor" to measure light intensity (lux).
+
+* On your device kill the running NodeJs service.
 
 .. code-block:: bash
 
     Ctrl+C
+
+* Run the node app again.
+
+.. code-block:: bash
+
+    node ./sensehat/index.js
+
+* Your RPi can read lux values, and perhaps display "too bright/dark" messages on the console depending on what threshold value triggers on/off behaviour.
+
+
+Send data to Thingspeak
+=======================
+BlynkApp Webhook widget can communicate with 3rd party services.
+
+* Go to ThingSpeak.com and create new temperature channel.
+
+* Go to BlynkApp and add "Webhook" from the widget box.
+
+* Monitor V2 and send data to Thingspeak (see: https://docs.blynk.cc/#widgets-other-webhook)
+
+.. image:: ./pics/blynk-webhooks.png
+   :scale: 10 %
+   :alt: npm package installed
+
+* On your device kill the running NodeJs service.
+
+.. code-block:: bash
+
+    Ctrl+C
+
+* Run the node app again.
+
+.. code-block:: bash
+
+    node ./sensehat/index.js
+
+Location/GPS Streaming
+======================
 
