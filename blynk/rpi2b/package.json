@@ -11,6 +11,7 @@
   "dependencies": {
     "blynk-library": "^0.5.3",
     "node-sense-hat": "0.0.2",
-    "onoff": "^3.2.2"
+    "onoff": "^3.2.2",
+    "wia": "^1.4.1"
   }
 }
