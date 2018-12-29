@@ -15,7 +15,7 @@ https://wia.io
 OS setup
 ========
 
-* Setup your iot platform access tokens how you like. This example uses `~/.bash_profile` to manage as environment variables. Remember to use `sudo -E` for scripts needing elevated privledges.
+* Setup iot platform access tokens how you like. I use `~/.bash_profile` to manage as environment variables. Remember `sudo -E` for scripts needing elevated privledges.
 
 .. code-block:: bash
 

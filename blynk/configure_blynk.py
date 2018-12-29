@@ -33,6 +33,8 @@ def main(argv):
         call(['npm', 'install', 'blynk-library', '--save', '--unsafe-perm'])
         call(['npm', 'install', 'onoff', '--save', '--unsafe-perm'])
         call(['npm', 'install', 'node-sense-hat', '--save', '--unsafe-perm'])
+        call(['npm', 'install', 'wia', '--save', '--unsafe-perm'])
+ 
         os.chdir(utils.workdir)
     except:
         print("\nFailed to install node packages")
