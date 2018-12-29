@@ -26,15 +26,25 @@ OS setup
     ### environment variables needed by iot-pi-stepping-stones ###
     export MY_BLYNK_TOKEN="${BLYNK_TOKEN_SENSEHAT}"
 
-* Execute command to setup the software
+* Create a subdirectory to represent your device-
 
 .. code-block:: bash
 
-    ./configure_blynk.py
+    mkdir rpi2b
+
+* Run the script You should see the following output:
+
+.. code-block:: bash
+
+    ./configure_blynk.py -d rpi2b
+
+.. image:: ./pics/npm-installed.png
+   :scale: 25 %
+   :alt: npm package installed
 
 Create a Blynk App
 ==================
-You can use Blynk to control your device using a Virtual Pin.
+Use Blynk to control your device using a Virtual Pin.
 
 * Execute command to start your on-device Blynk NodeJs service.
 
@@ -42,4 +52,10 @@ You can use Blynk to control your device using a Virtual Pin.
 
     node ./rpi2b/index.js
 
-* The Blynk App can now control your device using this Virtual Pin.
+* You should see output like the following-
+
+.. image:: ./pics/blynk-ready.png
+   :scale: 25 %
+   :alt: npm package installed
+
+* Your BlynkApp (Android/iOS) can control your device with this Virtual Pin.
