@@ -33,8 +33,9 @@ OS setup
     ./configure_blynk.py
 
 
-Pi2B Sample App
-===============
+Raspberry Pi virtual pin
+========================
+
 Use Blynk to control your device using a Virtual Pin.
 
 * Setup nodejs dependencies:
@@ -57,29 +58,7 @@ Use Blynk to control your device using a Virtual Pin.
 
 * Interact with your device from your Blynk app.
 
-
-Pi SenseHat 2 virtual pins
-==========================
-
-* Kill the previous NodeJs service:
-
-.. code-block:: bash
-
-    Ctrl+C
-
-* Setup nodejs dependencies:
-
-.. code-block:: bash
-
-    ./configure_nodejs.py sensehat/2vpin
-
-* Start nodejs service on-device:
-
-.. code-block:: bash
-
-    sudo -E node ./sensehat/2vpin/index.js
-
-* The service "listens" for reads events on V1, and "sends" data back to virtual pin V2.
+* The service reads events on V1, and "sends" data back to virtual pin V2.
 
 
 Phone Sensors Blynk App
@@ -98,13 +77,13 @@ Blynk app can access phones sensors such as light, and accelerometer.
 
 .. code-block:: bash
 
-    ./configure_nodejs.py pi/2b/index.js
+    ./configure_nodejs.py sensehat/2vpin
 
 * Run the node app again:
 
 .. code-block:: bash
 
-    sudo -E node ./sensehat/3vpin/index.js
+    sudo -E node ./sensehat/2vpin/index.js
 
 * Your RPi could perhaps display "too bright/dark" messages on the console depending on what threshold lux value triggers on/off behaviour.
 
@@ -123,7 +102,7 @@ BlynkApp Webhook widget can communicate with 3rd party services like ThingSpeak.
    :scale: 10 %
    :alt: npm package installed
 
-* On your device kill the running NodeJs service.
+* Kill the running NodeJs service.
 
 .. code-block:: bash
 
