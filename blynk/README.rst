@@ -135,9 +135,9 @@ BlynkApp Webhook widget can communicate with 3rd party services like WIA.
 
 * Monitor V4 as illustrated.
 
-.. image:: ./pics/blynk-gps-webhooks.png
+.. image:: ./pics/blynk-gps-webhook.png
    :scale: 10 %
-   :alt: npm package installed
+   :alt: GPS Streaming Webhook in Wia
 
 * Ensure your WiA tokens are OS environ variables.
 
