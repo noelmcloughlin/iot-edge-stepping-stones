@@ -18,7 +18,7 @@ var blynk = new Blynk.Blynk(process.env.MY_BLYNK_TOKEN, options = {
   connector : new Blynk.TcpClient()
 });
 
-var wia = require('wia')('"' + process.env.WIA_TOKEN_LOCATION + '"');
+var wia = require('wia')(process.env.WIA_TOKEN_LOCATION);
 
 //### virtual pin #one
 var v1 = new blynk.VirtualPin(1);
