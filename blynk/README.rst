@@ -30,7 +30,7 @@ OS setup
 
 .. code-block:: bash
 
-    ./reinstall_node.py
+    ./configure_blynk.py -n reinstall
 
 
 Raspberry Pi virtual pin
@@ -38,7 +38,13 @@ Raspberry Pi virtual pin
 
 Use Blynk to control your device using a Virtual Pin.
 
-* Setup nodejs dependencies:
+* Ensure nodeJs is installed:
+
+.. code-block:: bash
+
+    ./configure_blynk.py -n install
+
+* Ensure node libraries are encapsulated with device NodeJS code:
 
 .. code-block:: bash
 
@@ -60,7 +66,7 @@ Use Blynk to control your device using a Virtual Pin.
 
 Troubleshooting tip
 ===================
-* Remember to run ```./configure_blynk.py -d <devicedir>``` to avoid this error:
+* Remember to run ```./configure_blynk.py -d <devsubdir>``` to avoid this error:
 
 .. code-block:: bash
 

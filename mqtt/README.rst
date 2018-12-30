@@ -2,7 +2,7 @@
 
 Make RaspberryPi  sense and publish temp, pressure, and humidity data, to a MQTT broker. 
 
-.. image:: mqtt-publish-subscribe.png
+.. image:: ./pics/mqtt-publish-subscribe.png
    :scale: 25 %
    :alt: high level architecture
 

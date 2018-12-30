@@ -1,4 +1,4 @@
-Use ThingSpeak to collect and analyize data from your devices.
+Use ThingSpeak to collect and write temperature data from your device.
 
 Software, Hardware
 ===================
@@ -29,21 +29,15 @@ OS setup
     export MY_THINGSPEAK_RTOKEN="${THINGSPEAK_RTOKEN_SENSEHAT}"
     export MY_THINGSPEAK_WTOKEN="${THINGSPEAK_WTOKEN_SENSEHAT}"
 
-* Execute command to setup the software
-
-.. code-block:: bash
-
-        ./wia/configure_thingspeak.py
-
 Publish weather data
 ====================
-The SenseHAT has temperature, pressure, and humidity sensors suitable for a Weather station.
+The SenseHAT has temp, pressure, and humidity sensors useful for Weather station.
 
 * Open Terminal #1 and run script to publish events to your Thingspeak channel-
 
 .. code-block:: bash
 
-    sudo -E ./thingspeak/sensehat.py
+    sudo -E ./configure_thingspeak.py -s temp
 
 * Thingspeak consumes your Pi SenseHat temp/humidity/pressure data. 
 

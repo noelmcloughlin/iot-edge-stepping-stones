@@ -32,17 +32,17 @@ OS setup
 
 .. code-block:: bash
 
-        ./wia/configure_wia.py
+        ./configure_wia.py -a install
 
 Publish weather data
 ====================
 The SenseHAT has temperature, pressure, and humidity sensors useful as Weather station.
 
-* Open Terminal #1 and run script to publish events to WIA-
+* Open Terminal #1 and run script to publish weather events to WIA-
 
 .. code-block:: bash
 
-    sudo -E ./wia/sensehat.py
+    sudo -E ./configure_wia.py -s weather
 
 * WIA consumes your Pi SenseHat temp/humidity/pressure data. 
 
@@ -60,17 +60,13 @@ Use Wia events, commands. and flows to control SenseHat from facial expressions.
 
 .. code-block:: bash
 
-    curl -Ls -O https://raw.githubusercontent.com/noelmcloughlin/iot-pi-stepping-stones/master/wia/camera/local_snap.py
-
-    python3 ./local_snap.py
+    python3 ./camera/local_snap.py
 
 * Publish photo events from your laptop-
 
 .. code-block:: bash
 
-    curl -Ls -O https://raw.githubusercontent.com/noelmcloughlin/iot-pi-stepping-stones/master/wia/camera/remote_snap.py
-
-    python3 ./remote_snap.py
+    python3 ./camera/remote_snap.py
 
 * WIA consumes your RPi Camera data.
 

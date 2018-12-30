@@ -2,8 +2,13 @@
 
 from flask import Flask, request
 from flask_cors import CORS
-import temp_db_data
-from sense_hat import SenseHat
+#import temp_db_data
+
+try:
+    from sense_hat import SenseHat
+except:
+    utils.install_pkg('sense-hat')
+    from sense_hat import SenseHat
 
 sense = SenseHat()
 

@@ -12,7 +12,7 @@ OS setup
 
 .. code-block:: bash
 
-        ./configure_ble.py
+        ./configure_ble.py -a install
 
 Gatt Service
 ============
@@ -28,7 +28,7 @@ Gatt Service
 
 .. code-block:: bash
 
-        ./restart_ble.py
+        ./configure_ble.py -a restart
 
 
 Testing

@@ -1,5 +1,9 @@
 The BME680 digital chip can sense temperature, humidity, barometric pressure, and VOC (Volatile Organic Compounds) gas. Its low power, 8 pin, communicating over I2C (default) or SPI.
 
+.. image:: ./pics/bme680.png
+   :scale: 10 %
+   :alt: BME608 feature diagram
+
 Software, Hardware
 ===================
 * Raspberry Pi2B+/3B+
