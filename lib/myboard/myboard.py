@@ -12,6 +12,11 @@ class MyBoard():
 
         self.name = name
         if self.name == 'sense_hat':
+            try:
+                from sense_hat import SenseHat
+            except:
+                print("\nCannot import the sensehat module")
+                exit(1)
             self.board = SenseHat()
 
         elif name == 'bme680':
@@ -29,19 +34,29 @@ class MyBoard():
             self.set_filter(bme680.FILTER_SIZE_3)
         self.name = name
 
-    def read_temperature():
+    def read(self, sensor):
+        if sensor == 'temperature':
+            return self.read_temperature()
+        elif sensor == 'humidity':
+            return self.read_humidity()
+        elif sensor == 'pressure':
+            return self.read_pressure
+        else:
+            return None
+
+    def read_temperature(self):
         if self.name == 'sense_hat':
             return {'t': round(self.board.get_temperature(),2),}
         elif self.name == 'bme680':
             return {'t': round(self.board.data.temperature,2),}
 
-    def read_humidity():
+    def read_humidity(self):
         if self.name == 'sense_hat':
             return {'h': self.board.get_humidity(),}
         elif self.name == 'bme680':
             return {'h': self.board.data.humidity,}
 
-    def read_pressure():
+    def read_pressure(self):
         if self.name == 'sense_hat':
             return {'p': self.board.get_pressure(),}
         elif self.name == 'bme680':

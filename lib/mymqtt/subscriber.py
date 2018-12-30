@@ -1,29 +1,22 @@
 #####################################
-# Basic MQTT Subscriber class
+# Basic MQTT Subscriber utilty class
 #####################################
 
 import paho.mqtt.client as mqtt_c
-from tinydb import TinyDB, Query
-import time, datetime
 import json
-
-sys.path.append('../lib')
-import osutils as utils
+from tinydb import TinyDB, Query
 
 class MySubscriber():
     """ MQTT Subscriber class with event callbacks """
 
-    def __init__(self, controller, url, topics=[], dbengine=None):
-        self.client = mqtt_c.Client()
+    def __init__(self, url, dbengine=None):
+        """ Initialize the mqtt subscriber """
+
+        self.mqttc = mqtt_c.Client()
         self.type = 'subscriber'
         self.base_topic = url.path[1:]
-        self.topics = topics
-        try:
-            self.auth = controller.connect(self, url)
-        except:
-            print("\nCannot connect to %s" % url)
-            exit(1)
         self.url = url
+
         if dbengine:
             if dbengine == 'tinydb':
                 self.db = TinyDB('db.json')
@@ -33,21 +26,22 @@ class MySubscriber():
         self.dbengine = dbengine
         
         # Assign event callbacks
-        self.client.on_message = on_message
-        self.client.on_connect = on_connect
-        self.client.on_subscribe = on_subscribe
+        self.mqttc.on_message = on_message
+        self.mqttc.on_connect = on_connect
+        self.mqttc.on_subscribe = on_subscribe
 
-    def subscribe(topics=None):
-        #Subscribe, with QoS level 0
+    def subscribe(self, topics=None):
+        """ Subscribe, with QoS level 0 """
+
         if topics:
             for topic in topics:
                 self.subscribe(self.base_topic+"/%s" % topic, 0)
                 self.topics.append(topic)
 
-    def on_connect(role, userdata, flags, rc):
+    def on_connect(self, client, userdata, flags, rc):
         print("Connection Result: " + str(rc))
 
-    def on_message(client, obj, msg):
+    def on_message(self, client, obj, msg):
         """ Display or Persist received message """
         if not self.dbengine:
             print("Topic:"+msg.topic + ",Payload:" + str(msg.payload))
@@ -57,10 +51,10 @@ class MySubscriber():
             print(msg_json)
             self.db.insert(msg_json)
 
-    def on_subscribe(role, obj, mid, granted_qos):
+    def on_subscribe(self, client, obj, mid, granted_qos):
         print("Subscribed,  QOS granted: "+ str(granted_qos))
 
-    def get_records_by_key(item_key='t'):
+    def get_records_by_key(self, item_key='t'):
         """ Get DB records (only supports TinyDB) """
         records=""
         if self.dbengine:
@@ -69,28 +63,28 @@ class MySubscriber():
                     records+= str(float(rec[str(item_key)]))
         return records
 
-    def get_min(key='t'):
+    def get_min(self, key='t'):
         """ Get minimum value by key """
         if self.dbengine:
             records = self.get_records_by_key(key)
             return min(records)
         return None
 
-    def get_max(key='t'):
+    def get_max(self, key='t'):
         """ Get maximum value by key """
         if self.dbengine:
             records = self.get_records_by_key(key)
             return max(records)
         return None
 
-    def get_mean(key='t'):
+    def get_mean(self, key='t'):
         """ Get mean value by key """
         if self.dbengine:
             records = self.get_records_by_key(key)
             return sum(records)/len(records)
         return None
 
-    def records(start, end):
+    def records(self, start, end):
         """ Get records by start/end (TinyDB only) """
         if self.dbengine:
             records = Query()
