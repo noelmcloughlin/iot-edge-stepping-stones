@@ -50,7 +50,7 @@ v2.on('read', function() {
 v3.on('write', function(param) {
   //check if it's too dark!
   if (param[0]<50){console.log("It's a bit dark")}
-  //You could do something interesting here like turn on lights!
+  if (param[0]>70){console.log("It's a bit bright")}
 });
 
 v4.on('write', function(param) {

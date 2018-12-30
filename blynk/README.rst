@@ -132,6 +132,14 @@ BlynkApp Webhook widget can communicate with 3rd party services like ThingSpeak.
 
     sudo -E node ./sensehat/3vpin/index.js
 
+* Go to your thingspeak.com channel to observe temperature data from blynk:
+
+.. image:: ./pics/from_blynk_to_thingspeak.png
+   :scale: 10 %
+   :alt: Thinkspeak updates from Blynk
+
+* Ensure your WiA tokens are OS environ variables:
+
 
 Send GPS data to WiA
 =====================
