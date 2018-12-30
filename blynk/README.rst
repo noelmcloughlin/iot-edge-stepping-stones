@@ -65,15 +65,15 @@ Troubleshooting tip
 .. code-block:: bash
 
     pi@rasppi2b:~/iot-edge-stepping-stones/blynk$ sudo -E node sensehat/3vpin/index.js 
-module.js:549
-    throw err;
-    ^
+    module.js:549
+        throw err;
+        ^
 
 Phone Sensors Blynk App
 =======================
 Blynk app can access phones sensors such as light, and accelerometer.
 
-.. image:: ./blynk/pics/blynk-screenshot.png
+.. image:: ./pics/blynk-screenshot.png
    :scale: 25 %
    :alt: Blynk Widgets
 
