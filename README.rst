@@ -1,15 +1,28 @@
 # iot-edge-stepping-stones
 
-Collection of IoT solutions and ideas (MQTT, GATT, BLE, BT, PI, SENSORS, IOT PLATFORMS) for Pi and other devices.
+Collection of IoT solutions and ideas (MQTT, GATT, BLE, BT, PI, SENSORS, PLATFORMS) for connected devices.
 
-Contents
-========
-
+Technologies
+=============
 * BLE advertising
 * MQTT Broker
-* SenseHat sensors
-* Edge platforms: EdgeXfoundry
-* IoT platforms: WiA, ThingSpeak, Blynk.
+
+Edge platforms
+==============
+* EdgeXfoundry
+
+IoT Clouds
+===========
+* WiA
+* ThingSpeak
+* Blynk
+
+Boards
+======
+* BME680 module
+* Sensornode MCU
+* Pi-SenseHat
+* Raspberry Pi
 
 .. image:: ./thingspeak/pics/thingspeak-dash.png
    :scale: 25 %
@@ -29,4 +42,4 @@ Contents
 
 Credits
 =======
-Thanks to Dr Frank Walsh (WIT) for inspiration and ideas;-)
+- Dr Frank Walsh, CS, Waterford Institute of Technology, inspired this.
