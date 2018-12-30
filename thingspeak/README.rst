@@ -25,7 +25,7 @@ OS setup
     export THINGSPEAK_RTOKEN_RPI3BPLUS="yyyyyyyyyyyyyy"
     export THINGSPEAK_WTOKEN_RPI3BPLUS="zzzzzzzzzzzzzz"
 
-    ### environment variables needed by iot-pi-stepping-stones ###
+    ### environment variables needed ##
     export MY_THINGSPEAK_RTOKEN="${THINGSPEAK_RTOKEN_SENSEHAT}"
     export MY_THINGSPEAK_WTOKEN="${THINGSPEAK_WTOKEN_SENSEHAT}"
 

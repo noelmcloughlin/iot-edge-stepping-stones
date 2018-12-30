@@ -25,7 +25,7 @@ OS setup
     export WIA_TOKEN_RPI3BPLUS="d_sk_yyyyyyyyyyyyyyyyyyyyyyyy"
     export MY_WIA_TOKEN="${WIA_TOKEN_SENSEHAT}"
 
-    ### environment variables needed by iot-pi-stepping-stones ###
+    ### environment variables needed ##
     export MY_WIA_TOKEN="${WIA_TOKEN_SENSEHAT}"
 
 * Execute command to setup the software

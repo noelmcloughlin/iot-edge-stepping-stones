@@ -159,12 +159,12 @@ BlynkApp Webhook widget can communicate with 3rd party services like WIA.
 
     vi ~/.bash_profile
     ### My IoT Device Inventory
-    export WIA_TOKEN_SENSEHAT="d_sk_xxxxxxxxxxxxxxxxxxxxxxxpi"
+    export WIA_TOKEN_LOCATION="d_sk_xxxxxxxxxxxxxxxxxxxxxxxpi"
     export WIA_TOKEN_RPI3BPLUS="d_sk_yyyyyyyyyyyyyyyyyyyyyyyy"
-    export MY_WIA_TOKEN="${WIA_TOKEN_SENSEHAT}"
+    export MY_WIA_TOKEN="${WIA_TOKEN_LOCATION}"
 
-    ### environment variables needed by iot-pi-stepping-stones ###
-    export MY_WIA_TOKEN="${WIA_TOKEN_SENSEHAT}"
+    ### environment variables needed ##
+    export MY_WIA_TOKEN="${WIA_TOKEN_LOCATION}"
 
 * On your device kill the running NodeJs service.
 
