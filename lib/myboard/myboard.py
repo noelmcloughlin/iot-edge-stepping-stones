@@ -40,7 +40,7 @@ class MyBoard():
         elif sensor == 'humidity':
             return self.read_humidity()
         elif sensor == 'pressure':
-            return self.read_pressure
+            return self.read_pressure()
         else:
             return None
 

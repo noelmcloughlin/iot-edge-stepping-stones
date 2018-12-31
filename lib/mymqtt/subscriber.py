@@ -9,37 +9,33 @@ from tinydb import TinyDB, Query
 class MySubscriber():
     """ MQTT Subscriber class with event callbacks """
 
-    def __init__(self, url, dbengine=None):
-        """ Initialize the mqtt subscriber """
+    def __init__(self, controller, url, dbengine=None):
+        """ Initialize the mqtt subscriber.
+            Setup the mqtt client, event callbacks.
+            Then establish the connection.
+        """
 
-        self.mqttc = mqtt_c.Client()
-        self.type = 'subscriber'
         self.base_topic = url.path[1:]
         self.url = url
-
-        if dbengine:
-            if dbengine == 'tinydb':
-                self.db = TinyDB('db.json')
-            else:
-                print("\nUnsupported dbengine")
-                exit(1)
+        if dbengine and dbengine == 'tinydb':
+            self.db = TinyDB('db.json')
         self.dbengine = dbengine
-        
-        # Assign event callbacks
-        self.mqttc.on_message = on_message
-        self.mqttc.on_connect = on_connect
-        self.mqttc.on_subscribe = on_subscribe
+        self.topics = []
+        self.mqttc = mqtt_c.Client()
+        self.mqttc.on_message = self.on_message
+        self.mqttc.on_connect = self.on_connect
+        self.mqttc.on_subscribe = self.on_subscribe
+        controller.connect(self.mqttc, url)
 
     def subscribe(self, topics=None):
         """ Subscribe, with QoS level 0 """
-
-        if topics:
-            for topic in topics:
-                self.subscribe(self.base_topic+"/%s" % topic, 0)
-                self.topics.append(topic)
+        print(str(topics))
+        for topic in topics:
+            self.mqttc.subscribe(self.base_topic+"/%s" % topic, 0)
+            self.topics.append(topic)
 
     def on_connect(self, client, userdata, flags, rc):
-        print("Connection Result: " + str(rc))
+        print("Connected to %s%s Result: %s" % (self.url.netloc, self.url.path, str(rc)))
 
     def on_message(self, client, obj, msg):
         """ Display or Persist received message """
@@ -51,8 +47,8 @@ class MySubscriber():
             print(msg_json)
             self.db.insert(msg_json)
 
-    def on_subscribe(self, client, obj, mid, granted_qos):
-        print("Subscribed,  QOS granted: "+ str(granted_qos))
+    def on_subscribe(self, client, obj, mid, qos):
+        print("Subscribed to %s%s  QOS: %s" % (self.url.netloc, self.url.path, str(qos)))
 
     def get_records_by_key(self, item_key='t'):
         """ Get DB records (only supports TinyDB) """

@@ -9,7 +9,9 @@ sys.path.append('../lib')
 import osutils as utils
 from mymqtt import controller, subscriber, publisher
 
-### MAIN ####
+### BEGIN ####
+persist=False
+
 
 def usage():
     print("\n%s Usage:" % os.path.basename(__file__))
@@ -25,6 +27,21 @@ def install():
     utils.install_pkg(['mosquitto', 'mosquitto-client',])
     utils.install_pip(['paho-mqtt', 'tinyDB', 'flask', 'flask-cors',])
     
+def on_connect(client, userdata, flags, rc):
+    """ On connection callback """
+    print("Connection Result: " + str(rc))
+
+def on_subscribe(client, obj, mid, granted_qos):
+    print("Subscribed,  QOS granted: "+ str(granted_qos))
+
+def on_publish(client, obj, mid):
+    """ On publish callback """
+    print("Message ID: " + str(mid))
+
+def on_message(self, client, obj, msg):
+    """ Display or Persist received message """
+    print("Topic:"+msg.topic + ",Payload:" + str(msg.payload))
+
 def main(argv):
     try:
         opts, args = getopt.getopt(argv,"b:a:u:d:i:",["board=", "action=", "url=", "domain=", "interval="])
@@ -66,21 +83,21 @@ def main(argv):
             sensors = ['temperature', 'humidity', 'pressure']
 
         url = urlparse.urlparse(url_str)
-        c = controller.MyController(action, url)
-
+        ctrlr = controller.MyController(action, url)
         if action == 'publish':
-            p = publisher.MyPublisher(url)
-            print("\connect")
-            c.connect(p.mqttc, url)
-            print("\done connect")
-            p.mqttc.loop_start()
-            c.publish(p, sensors)
+            client = publisher.MyPublisher(ctrlr, url)
+            client.mqttc.loop_start()
+            board = myboard.MyBoard(self.board_name)
+            while True:
+                messages = {}
+                data = ctrlr.read(board, sensors)
+                payload = p.as_json_string(s, data)
+                messages.append(p.as_json_message(p.base_topic, client, payload))
+                client.publish_multiple(messages, seconds)
         else:
-            s = subscriber.MySubscriber(url)
-            c.connect(p.mqttc, url)
-            s.loop_forever()
-            c.subscribe(s, sensors)
-            ##Continue the network loop, exit when an error occurs. ##
+            client = subscriber.MySubscriber(ctrlr, url)
+            ctrlr.subscribe(client, sensors)
+            client.mqttc.loop_forever()
             rc = 0
             while rc == 0:
                 rc = s.mqttc.loop()
