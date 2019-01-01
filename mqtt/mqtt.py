@@ -8,6 +8,7 @@ from subprocess import call
 sys.path.append('../lib')
 import osutils as utils
 from mymqtt import controller, subscriber, publisher
+from myboard import myboard
 
 ### BEGIN ####
 persist=False
@@ -27,21 +28,6 @@ def install():
     utils.install_pkg(['mosquitto', 'mosquitto-client',])
     utils.install_pip(['paho-mqtt', 'tinyDB', 'flask', 'flask-cors',])
     
-def on_connect(client, userdata, flags, rc):
-    """ On connection callback """
-    print("Connection Result: " + str(rc))
-
-def on_subscribe(client, obj, mid, granted_qos):
-    print("Subscribed,  QOS granted: "+ str(granted_qos))
-
-def on_publish(client, obj, mid):
-    """ On publish callback """
-    print("Message ID: " + str(mid))
-
-def on_message(self, client, obj, msg):
-    """ Display or Persist received message """
-    print("Topic:"+msg.topic + ",Payload:" + str(msg.payload))
-
 def main(argv):
     try:
         opts, args = getopt.getopt(argv,"b:a:u:d:i:",["board=", "action=", "url=", "domain=", "interval="])
@@ -52,8 +38,10 @@ def main(argv):
         usage()
 
     ### Script Defaults ###
-    domain='environment'
-    board='sense_hat'
+    domain='ENVIRONMENT'
+    board_name='sense_hat'
+    sensors = ['t', 'h', 'p']
+    interval = 15
 
     ### Script command line arguments ###
     for opt, arg in opts:
@@ -62,13 +50,11 @@ def main(argv):
         elif opt in ("-u", "--url"):
             url_str = arg
         elif opt in ("-b", "--board"):
-            board = arg or board
+            board_name = arg or board_name
         elif opt in ("-d", "--domain"):
             domain = arg or domain
-            if domain == 'environment':
-                sensors = ['temperature', 'humidity', 'pressure',]
         elif opt in ("-i", "--interval"):
-            seconds = arg or '15'
+            interval = arg or interval
         else:
             usage()
 
@@ -76,31 +62,25 @@ def main(argv):
         install()
 
     elif action in ("publish", "subscribe") and url_str:
-        sensors = []
-        if board == 'sense_hat' and domain == 'environment':
-            sensors = ['temperature', 'humidity', 'pressure']
-        elif board == 'bme680':
-            sensors = ['temperature', 'humidity', 'pressure']
-
         url = urlparse.urlparse(url_str)
         ctrlr = controller.MyController(action, url)
+
         if action == 'publish':
             client = publisher.MyPublisher(ctrlr, url)
-            client.mqttc.loop_start()
-            board = myboard.MyBoard(self.board_name)
+            #client.mqttc.loop_start()
+            board = myboard.MyBoard(board_name)
             while True:
-                messages = {}
                 data = ctrlr.read(board, sensors)
-                payload = p.as_json_string(s, data)
-                messages.append(p.as_json_message(p.base_topic, client, payload))
-                client.publish_multiple(messages, seconds)
-        else:
+                messages = client.multiple_messages(client.base_topic, data)
+                client.publish_multiple(messages, ctrlr.auth, interval)
+
+        elif action == 'subscribe':
             client = subscriber.MySubscriber(ctrlr, url)
             ctrlr.subscribe(client, sensors)
             client.mqttc.loop_forever()
             rc = 0
             while rc == 0:
-                rc = s.mqttc.loop()
+                rc = client.mqttc.loop()
             print("rc: " + str(rc))
     else:
         usage()

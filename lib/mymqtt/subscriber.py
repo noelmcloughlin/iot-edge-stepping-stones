@@ -29,7 +29,6 @@ class MySubscriber():
 
     def subscribe(self, topics=None):
         """ Subscribe, with QoS level 0 """
-        print(str(topics))
         for topic in topics:
             self.mqttc.subscribe(self.base_topic+"/%s" % topic, 0)
             self.topics.append(topic)

@@ -3,9 +3,10 @@
 #####################################
 
 import paho.mqtt.client as mqtt_c
-import paho.mqtt.publish as mqtt_p
+import paho.mqtt.publish as publish
 import json
 import time
+import ast
 
 
 class MyPublisher():
@@ -22,7 +23,7 @@ class MyPublisher():
         self.mqttc = mqtt_c.Client()
         self.mqttc.on_connect = self.on_connect
         self.mqttc.on_publish = self.on_publish
-        controller.connect(self.mqttc, url)
+        controller.connect(self.mqttc, self.url)
 
     def on_connect(self, client, userdata, flags, rc):
         """ On connection callback """
@@ -36,22 +37,23 @@ class MyPublisher():
         print("Message ID: " + str(mid))
 
 
-    def create_json_string(self, n, v=None, t=time.time()):
-        """ Create JSON string """
+    def multiple_messages(self, base_topic, data):
+        """ Create JSON messages list """
 
-        jstring = "{'%s': %s, 'timestamp': %s}" % (str(n), str(v), str(t))
-        return json.dumps(jstring)
+        bundle_of_messages = []
+        t = time.time()
+        messages = []
+        for k,v in data.items():
+            record = {}
+            record.update({k:v, 'timestamp': t})
+            messages.append(record)
+            mqtt_message = {"topic": base_topic + "/" + k, 'payload': v}
+            bundle_of_messages.append(mqtt_message)
+        return bundle_of_messages
 
+    def publish_multiple(self, messages, auth=None, interval=15):
+        """ Publish multiple mqtt messages """
 
-    def create_json_message(self, base_topic, name='t', payload=None):
-        """ Create mqtt message """
-
-        return "{'topic': '%s/%s', 'payload': %s}" % (base_topic, name, payload)
-
-
-    def publish_multiple(self, msgs, seconds=15):
-        """ Publish mqtt messages """
-
-        mqtt_p.multiple(msgs, hostname=self.url.hostname, port=self.url.port, auth=self.auth)
-        print("\published")
-        time.sleep(seconds)
+        publish.multiple(messages, hostname=self.url.hostname, port=self.url.port)
+        print("published")
+        time.sleep(interval)

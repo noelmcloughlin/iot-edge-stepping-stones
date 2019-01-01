@@ -35,29 +35,29 @@ class MyBoard():
         self.name = name
 
     def read(self, sensor):
-        if sensor == 'temperature':
+        if sensor in ('temperature', 't'):
             return self.read_temperature()
-        elif sensor == 'humidity':
+        elif sensor in ('humidity', 'h'):
             return self.read_humidity()
-        elif sensor == 'pressure':
+        elif sensor in ('pressure', 'p'):
             return self.read_pressure()
         else:
             return None
 
     def read_temperature(self):
         if self.name == 'sense_hat':
-            return {'t': round(self.board.get_temperature(),2),}
+            return round(self.board.get_temperature(),2)
         elif self.name == 'bme680':
-            return {'t': round(self.board.data.temperature,2),}
+            return round(self.board.data.temperature,2)
 
     def read_humidity(self):
         if self.name == 'sense_hat':
-            return {'h': self.board.get_humidity(),}
+            return self.board.get_humidity()
         elif self.name == 'bme680':
-            return {'h': self.board.data.humidity,}
+            return self.board.data.humidity
 
     def read_pressure(self):
         if self.name == 'sense_hat':
-            return {'p': self.board.get_pressure(),}
+            return self.board.get_pressure()
         elif self.name == 'bme680':
-            return {'p': self.board.data.pressure,}
+            return self.board.data.pressure

@@ -16,13 +16,17 @@ class MyController():
         self.auth=None
 
 
-    def read(self, device, sensors=None):
-        """ Publish mqtt topics """
+    def read(self, board, sensors=None, timestamp=False):
+        """ Read pin values from board.
+            Return a dict.
+        """
 
-        data = []
-        for s in sensors:
-            data.append(device.read(s))
-        return data
+        keys = []
+        values = []
+        for sensor in sensors:
+            keys.append(sensor)
+            values.append(board.read(sensor))
+        return dict(zip(keys, values)) 
 
 
     def subscribe(self, client, sensors=None):
@@ -35,12 +39,7 @@ class MyController():
     def connect(self, mqttc, url):
         """ Parse mqtt url and connect to broker """
 
-        self.auth=None
         if (url.username):
             self.auth = {'username': url.username, 'password': url.password}
             mqttc.username_pw_set(url.username, url.password)
-        try:
-            mqttc.connect(url.hostname, url.port)
-        except:
-            print("\nCannot connect to %s" % url)
-            exit(1)
+        mqttc.connect(url.hostname, url.port)
