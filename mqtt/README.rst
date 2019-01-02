@@ -2,8 +2,10 @@
 
 Use MQTT to publish/subscribe to/from sensor data (humidity, temp, pressure) in a flexible manner.
 
-.. image:: ./pics/mqtt-publish-subscribe.png
-   :scale: 25 %
+.. image:: ./pics/mqtt-schema-diagram.png
+   :width: 1168
+   :height: 806
+   :scale: 60 %
    :alt: high level architecture
 
 Sample software &Hardware
@@ -71,9 +73,7 @@ The SenseHAT has temperature, pressure, and humidity sensors useful as Weather s
     Insert DB: NOELWEATHER_A/t, val:29.31
     Insert DB: NOELWEATHER_A/p, val:1043.44677734
 
-* Lets push the solution harder by using second ('bme680') board and MQTT broker...
-
-* Open New Terminal on hostB and publish to/from different broker/board-
+* Lets push the solution harder by using second ('bme680') board and MQTT broker. Open New Terminal on hostB and publish to/from different broker/board-
 
 .. code-block:: bash
 
@@ -86,7 +86,6 @@ The SenseHAT has temperature, pressure, and humidity sensors useful as Weather s
 * Back on HostA, subscribe to the new channel and persist data too-
 
 .. code-block:: bash
-
 
     sudo ./mqtt.py -a subscribe -u mqtt://test.mosquitto.org:1883/NOELWEATHER_B --persist True
     Connected to test.mosquitto.org:1883/NOELWEATHER_B Result: 0
