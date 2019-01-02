@@ -3,8 +3,8 @@
 Use MQTT to publish/subscribe to/from sensor data (humidity, temp, pressure) in a flexible manner.
 
 .. image:: ./pics/mqtt-schema-diagram.png
-   :width: 1168
-   :height: 806
+   :width: 1168px
+   :height: 806px
    :scale: 60 %
    :alt: high level architecture
 
