@@ -15,6 +15,13 @@ https://wia.io
 OS setup
 ========
 
+* Clone this repo.
+
+.. code-block:: bash
+    
+    git clone https://github.com/noelmcloughlin/iot-edge-stepping-stones.git
+    cd iot-edge-stepping-stones
+
 * Setup iot platform access tokens how you like. I use `~/.bash_profile` to manage as environment variables. Remember `sudo -E` for scripts needing elevated privledges.
 
 .. code-block:: bash
@@ -32,7 +39,7 @@ OS setup
 
 .. code-block:: bash
 
-        ./configure_wia.py -a install
+        ./wia/configure_wia.py -a install
 
 Publish weather data
 ====================

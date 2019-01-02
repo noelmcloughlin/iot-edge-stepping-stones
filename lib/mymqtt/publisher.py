@@ -32,7 +32,10 @@ class MyPublisher():
 
 
     def on_publish(self, client, obj, mid):
-        """ On publish callback """
+        """ On publish callback. According to MQTT protocol,
+            QOS=0 messages are not acked. This means this
+            method is only invoked when QOS>0.
+        """
 
         print("Message ID: " + str(mid))
 
@@ -54,6 +57,7 @@ class MyPublisher():
     def publish_multiple(self, messages, auth=None, interval=15):
         """ Publish multiple mqtt messages """
 
-        publish.multiple(messages, hostname=self.url.hostname, port=self.url.port)
-        print("published")
+        publish.multiple(messages, hostname=self.url.hostname, port=self.url.port, auth=None)
+        ## you might want to uncomment when QOS=0 to get some kind of feedback###
+        #print("published")
         time.sleep(interval)

@@ -1,0 +1,16 @@
+[Unit]
+Description=Bluetooth Low Energy LED Matrix GattServer
+Requires=bluetooth.service
+After=bluetooth.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStartPre=hciconfig hci0 name 'RPi' || true
+ExecStart=/usr/local/ble-led-matrix-gatt-server/src/gatt-server >/tmp/ble-led-gatt.log 2>/tmp/ble-led-gatt.err
+ExecStop=killall /usr/local/ble-gatt-server/src/gatt-server
+
+[Install]
+WantedBy=multi-user.target
+Alias=ble-led-gatt-server.service

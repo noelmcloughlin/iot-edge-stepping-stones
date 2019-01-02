@@ -8,11 +8,18 @@ Software, Hardware
 OS setup
 ========
 
+* Clone this repo.
+
+.. code-block:: bash
+    
+    git clone https://github.com/noelmcloughlin/iot-edge-stepping-stones.git
+    cd iot-edge-stepping-stones
+
 * Setup Bluetooth 5.50 prerequisites (system will reboot)
 
 .. code-block:: bash
 
-        ./configure_ble.py -a install
+        ./ble-gatt-service/configure_ble.py -a install
 
 Gatt Service
 ============

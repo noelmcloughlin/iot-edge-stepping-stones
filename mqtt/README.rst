@@ -1,103 +1,105 @@
-# Use HTTP and MQTT to connect a device
+# Sample Use case: a redundant Weather Station solution using HTTP and MQTT.
 
-Make RaspberryPi  sense and publish temp, pressure, and humidity data, to a MQTT broker. 
+Use MQTT to publish/subscribe to/from sensor data (humidity, temp, pressure) in a flexible manner.
 
 .. image:: ./pics/mqtt-publish-subscribe.png
    :scale: 25 %
    :alt: high level architecture
 
-Software, Hardware
-===================
-* Raspberry Pi2B/Pi3B
-* SenseHAT
-* Cloud MQTT Broker
+Sample software &Hardware
+===========================
+* Raspberry Pi2B+ with Environmental Board (i.e. Sense HAT)
+* Raspberry Pi3B+ with Environmental Board (i.e. BME680)
+* Cloud MQTT Brokers
 * TinyDB
 
 Cloud MQTT broker
 =================
 Optionally select your cloud mqtt broker-
 
-mqtt://iot.eclipse.org:1883
-mqtt://broker.hivemq.com:1883
-mqtt://test.mosquitto.org:1883
-https://www.cloudmqtt.com/
+* mqtt://iot.eclipse.org:1883
+* mqtt://broker.hivemq.com:1883
+* mqtt://test.mosquitto.org:1883
+* https://www.cloudmqtt.com/
 
 Setup software
 =================
 
-* Execute command to setup the software
+* Clone this repo.
 
 .. code-block:: bash
 
-        ./mqtt/configure_mqtt.py
+    git clone https://github.com/noelmcloughlin/iot-edge-stepping-stones.git
+    cd iot-edge-stepping-stones
+
+* Execute command to setup required software
+
+.. code-block:: bash
+
+        ./mqtt/mqtt.py -a install
 
 Publish weather data
 ====================
-The SenseHAT has temperature, pressure, and humidity sensors useful as Weather station.
+The SenseHAT has temperature, pressure, and humidity sensors useful as Weather station. Lets starrt publishing data to a Cloud MQTT broker. The publisher defaults to 'sense_hat' board but 'bme680' is supported too.
 
-* Open Terminal #1 and run mqtt broker publisher script-
-
-.. code-block:: bash
-
-    ./mqtt/client_pub_multi.py mqtt://iot.eclipse.org:1883/WEATHER/home
-
-* Your RPi publishes temp/humidity/pressure timestamped messages to your cloud MQTT broker.
+* On hostA (default 'sense_hat' board), publish mqtt weather messages-
 
 .. code-block:: bash
 
-    mqtt://iot.eclipse.org:1883/WEATHER/home
-    Message ID: 1
-    Connection Result: 0     #see https://pypi.org/project/paho-mqtt/#callbacks
-    Message ID: 2
+    sudo ./mqtt.py -a publish -u mqtt://iot.eclipse.org:1883/NOELWEATHER_A
+    Connected to iot.eclipse.org:1883/NOELWEATHER_A Result: 0
+    {'h': 49.61815643310547, 't': 29.33, 'p': 1043.434326171875}
+    {'h': 49.139583587646484, 't': 29.33, 'p': 1043.46826171875}
 
-subscribe to weather data
-=========================
-* Open Terminal #2 on (local or remote) host, and run mqtt broker subscriber script-
+* On hostB, subscribe to same mqtt weather messages-
 
 .. code-block:: bash
 
-    ./mqtt/client_sub.py mqtt://iot.eclipse.org:1883/WEATHER/home
+    ./mqtt.py -a subscribe -u mqtt://iot.eclipse.org:1883/NOELWEATHER_A
+    Connected to iot.eclipse.org:1883/NOELWEATHER_A Result: 0
+    topic:NOELWEATHER_A/h, val:48.9634399414
+    topic:NOELWEATHER_A/t, val:29.42
+    topic:NOELWEATHER_A/p, val:1043.48852539
 
-* Your Pi is now subscribed to temp, humid, and pressure topics from the cloud MQTT broker.
-
-.. code-block:: bash
-
-    Connection Result: 0
-    Subscribed,  QOS granted: (0,)
-    Topic:WEATHER/home/t,Payload:{"timestamp": 1545615738.727764, "t": 30.23}
-    Topic:WEATHER/home/h,Payload:{"timestamp": 1545615738.728046, "h": 46.563934326171875}
-    Topic:WEATHER/home/p,Payload:{"p": 1024.540771484375, "timestamp": 1545615738.728198}
-    Topic:WEATHER/home/t,Payload:{"timestamp": 1545615753.758816, "t": 30.27}
-    Topic:WEATHER/home/h,Payload:{"timestamp": 1545615753.759097, "h": 46.33129119873047}
-    Topic:WEATHER/home/p,Payload:{"p": 1024.53515625, "timestamp": 1545615753.759253}
-
-* This illustrates a working MQTT publisher/subscriber weather station solution.
-
-Persist weather data
-====================
-* Stop the subscriber by entering ctrl+c on your Terminal #2..
-
-* In same terminal run mqtt broker subscriber and persist script-
+* On hostB, persist the same mqtt weather messages to TinyDB by setting flag-
 
 .. code-block:: bash
 
-        ./mqtt/persist_sub.py mqtt://iot.eclipse.org:1883/WEATHER/home
+    sudo ./mqtt.py -a subscribe -u mqtt://iot.eclipse.org:1883/NOELWEATHER_A --persist True
+    Connected to iot.eclipse.org:1883/NOELWEATHER_A Result: 0
+    Insert DB: NOELWEATHER_A/h, val:48.7972717285
+    Insert DB: NOELWEATHER_A/t, val:29.31
+    Insert DB: NOELWEATHER_A/p, val:1043.44677734
 
-* Your Pi is now persisting temp, humid, and pressure data from the cloud MQTT broker.
+* Lets push the solution harder by using second ('bme680') board and MQTT broker...
+
+* Open New Terminal on hostB and publish to/from different broker/board-
 
 .. code-block:: bash
 
-        Connection Result: 0
-        Subscribed,  QOS granted: (0,)
-        Subscribed,  QOS granted: (0,)
-        Subscribed,  QOS granted: (0,)
-        Insering into DB: {"timestamp": 1545617005.797151, "t": 30.28}
-        Insering into DB: {"h": 46.22826385498047, "timestamp": 1545617005.797439}
-        Insering into DB: {"p": 1024.527587890625, "timestamp": 1545617005.797592}
+    ./mqtt.py -a publish -u mqtt://test.mosquitto.org:1883/NOELWEATHER_B --board bme680
+    Connected to test.mosquitto.org:1883/NOELWEATHER_B Result: 0
+    topic:NOELWEATHER_B/h, val:48.9634399414
+    topic:NOELWEATHER_B/t, val:29.42
+    topic:NOELWEATHER_B/p, val:1043.48852539
+
+* Back on HostA, subscribe to the new channel and persist data too-
+
+.. code-block:: bash
+
+
+    sudo ./mqtt.py -a subscribe -u mqtt://test.mosquitto.org:1883/NOELWEATHER_B --persist True
+    Connected to test.mosquitto.org:1883/NOELWEATHER_B Result: 0
+    Insert DB: NOELWEATHER_B/h, val:48.7972717285
+    Insert DB: NOELWEATHER_B/t, val:29.31
+    Insert DB: NOELWEATHER_B/p, val:1043.44677734
+
+
+* This illustrates a working MQTT publisher/subscriber redundant weather station solution.
 
 Simple Analytics
 ================
-You can use TinyDB python api to extract simple statistics-
+Use TinyDB python api to extract simple statistics from the generated 'db.json' files-
 
 .. code-block:: bash
 
@@ -138,10 +140,4 @@ Weather Station Web API
 
        curl -X POST http://127.0.0.1:5000/sensehat/light?state=on
        curl -X POST http://127.0.0.1:5000/sensehat/light?state=off
-
-
-Testing
-=======
-Verified on-
-- Rasbian on RaspberryPi 2B+, and SenseHat.
 

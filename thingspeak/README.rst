@@ -14,6 +14,15 @@ https://thingspeak.com
 OS setup
 ========
 
+* Clone this repo.
+
+.. code-block:: bash
+    
+    git clone https://github.com/noelmcloughlin/iot-edge-stepping-stones.git
+    cd iot-edge-stepping-stones
+
+* Execute command to setup required software
+
 * Setup iot platform access tokens how you like. I use `~/.bash_profile` to manage as environment variables. Remember `sudo -E` for scripts needing elevated privledges.
 
 .. code-block:: bash
@@ -37,7 +46,7 @@ The SenseHAT has temp, pressure, and humidity sensors useful for Weather station
 
 .. code-block:: bash
 
-    sudo -E ./configure_thingspeak.py -s temp
+    sudo -E ./thingspeak/configure_thingspeak.py -s temp
 
 * Thingspeak consumes your Pi SenseHat temp/humidity/pressure data. 
 
