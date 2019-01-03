@@ -1,6 +1,10 @@
-# Sample Use case: a redundant Weather Station solution using HTTP and MQTT.
+# MQTT for IoT Edge
 
-Use MQTT to publish/subscribe to/from sensor data (humidity, temp, pressure) in a flexible manner.
+One great solution for monitoring the IoT Edge is MQTT. It's a flexible 'publish/subscribe/broker' technology which perfectly suited for the internet of things, and transferring data from Edge networks to the cloud.
+
+This article describes a simple redundant Weather-Station solution based on MQTT. Using python I built a small flexible 'mqtt library' to drive this example - the code is available on github - here we go.
+
+Let's build the weather station modeled in this grapic!!
 
 .. image:: ./pics/mqtt-schema-diagram.png
    :width: 1168px
@@ -17,7 +21,7 @@ Sample software &Hardware
 
 Cloud MQTT broker
 =================
-Optionally select your cloud mqtt broker-
+Pick your cloud mqtt broker, we need this later on.-
 
 * mqtt://iot.eclipse.org:1883
 * mqtt://broker.hivemq.com:1883
@@ -27,7 +31,7 @@ Optionally select your cloud mqtt broker-
 Setup software
 =================
 
-* Clone this repo.
+* Clone my repo.
 
 .. code-block:: bash
 
@@ -40,11 +44,11 @@ Setup software
 
         ./mqtt/mqtt.py -a install
 
-Publish weather data
-====================
-The SenseHAT has temperature, pressure, and humidity sensors useful as Weather station. Lets starrt publishing data to a Cloud MQTT broker. The publisher defaults to 'sense_hat' board but 'bme680' is supported too.
 
-* On hostA (default 'sense_hat' board), publish mqtt weather messages-
+Weather Station Site/Zone A
+===========================
+
+* On hostA ('sense_hat' board), publish weather data to a cloud MQTT broker:
 
 .. code-block:: bash
 
@@ -53,7 +57,8 @@ The SenseHAT has temperature, pressure, and humidity sensors useful as Weather s
     {'h': 49.61815643310547, 't': 29.33, 'p': 1043.434326171875}
     {'h': 49.139583587646484, 't': 29.33, 'p': 1043.46826171875}
 
-* On hostB, subscribe to same mqtt weather messages-
+
+* On hostB, subscribe to the weather messages:
 
 .. code-block:: bash
 
@@ -63,7 +68,9 @@ The SenseHAT has temperature, pressure, and humidity sensors useful as Weather s
     topic:NOELWEATHER_A/t, val:29.42
     topic:NOELWEATHER_A/p, val:1043.48852539
 
-* On hostB, persist the same mqtt weather messages to TinyDB by setting flag-
+
+
+* Persist data (to TinyDB) passing '--persist True' flag.
 
 .. code-block:: bash
 
@@ -73,7 +80,11 @@ The SenseHAT has temperature, pressure, and humidity sensors useful as Weather s
     Insert DB: NOELWEATHER_A/t, val:29.31
     Insert DB: NOELWEATHER_A/p, val:1043.44677734
 
-* Lets push the solution harder by using second ('bme680') board and MQTT broker. Open New Terminal on hostB and publish to/from different broker/board-
+
+Weather Station Site/Zone A
+===========================
+
+* On hostB ('BME680' board), publish weather data to a different cloud MQTT broker:
 
 .. code-block:: bash
 
@@ -83,7 +94,9 @@ The SenseHAT has temperature, pressure, and humidity sensors useful as Weather s
     topic:NOELWEATHER_B/t, val:29.42
     topic:NOELWEATHER_B/p, val:1043.48852539
 
-* Back on HostA, subscribe to the new channel and persist data too-
+
+
+* Back on HostA, subscribe to the weather channel-
 
 .. code-block:: bash
 
@@ -93,12 +106,12 @@ The SenseHAT has temperature, pressure, and humidity sensors useful as Weather s
     Insert DB: NOELWEATHER_B/t, val:29.31
     Insert DB: NOELWEATHER_B/p, val:1043.44677734
 
+Data Analytics
+==============
 
-* This illustrates a working MQTT publisher/subscriber redundant weather station solution.
+Storing MQTT subscrioption in a Database makes good sense. SQLite or PostgreSql are popular choices.
 
-Simple Analytics
-================
-Use TinyDB python api to extract simple statistics from the generated 'db.json' files-
+* I used TinyDB because it's perfect for proof-of-concept ..
 
 .. code-block:: bash
 
@@ -113,30 +126,11 @@ Use TinyDB python api to extract simple statistics from the generated 'db.json' 
         >>> q = Query()
         >>> db.search(q.temperature < 33.95)
         [{u'temperature': 33.93},]
-        >>> exit()
 
-Weather Station Web API
-=======================
-* Start a web service on port 500 as follows-
 
-.. code-block:: bash
+Summary
+=======
 
-        FLASK_APP=hello.py
-        python temp_api.py
+This demo shows how to build a simple MQTT-driven redundant edgeT monitoring system. 
 
-* Get various temperature statistics
-
-.. code-block:: bash
-
-       curl http://127.0.0.1:5000/sensehat/temp
-       curl http://127.0.0.1:5000/sensehat/temp/min
-       curl http://127.0.0.1:5000/sensehat/temp/mean
-       curl http://127.0.0.1:5000/sensehat/temp/max
-
-* Control the LED array (light) on the SenseHat-
-
-.. code-block:: bash
-
-       curl -X POST http://127.0.0.1:5000/sensehat/light?state=on
-       curl -X POST http://127.0.0.1:5000/sensehat/light?state=off
-
+My mqtt python library can be easily adapted .. code contributions are welcome!!!
