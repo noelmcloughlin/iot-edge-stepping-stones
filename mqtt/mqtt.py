@@ -25,8 +25,11 @@ def usage():
     sys.exit(2)
 
 def install():
-    utils.install_pkg(['mosquitto',])
-    utils.install_pip(['paho-mqtt', 'tinyDB', 'flask', 'flask-cors',])
+    #utils.install_pkg(['mosquitto',])
+    #utils.install_pip(['paho-mqtt', 'tinyDB', 'flask', 'flask-cors',])
+    utils.install_lib('sense-hat')
+    utils.install_lib('bme680-python')
+    
     
 def main(argv):
     try:

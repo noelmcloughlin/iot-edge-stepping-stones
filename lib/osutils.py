@@ -1,8 +1,7 @@
 
 from subprocess import call
-import os
+import os, shutil
 import distutils.spawn
-distutils.spawn.find_executable("notepad.exe")
 
 workdir = str(os.getcwd()) + "/"
 
@@ -58,16 +57,34 @@ def import_lib(name, func=None):
     except:
         return False
 
-def install_lib(name, func=None):
-    """ Install and/or import python library or function """
-    result = False
+def setup_pylib(appname, url, pydirname=None, subdir=None):
+    """ Install something from git """
+
     try:
-        result = import_pylib(name, func)
+        from git import Repo
     except:
-        if name == 'sense-hat':
-            install_pkg('sense-hat')
-        elif name == 'bme680':
-            install_bme680()
-        else:
-            print("\n unsupported library %s" % name)
-            exit(1)
+        utils.install_pkg('git')
+        from git import Repo
+
+    shutil.rmtree(str(pydirname))
+    Repo.clone_from(url, pydirname)
+    if appname:
+        os.chdir(str(pydirname))
+        if subdir:
+            os.chdir(str(subdir))
+        call(['sudo', 'python', './setup.py', 'install'])
+        os.chdir(workdir)
+
+def install_lib(libpackage):
+    """ Install and/or import python library or function """
+
+    if libpackage == 'sense-hat':
+        install_pkg('sense-hat')
+
+    elif libpackage == 'bme680-python':
+        url = 'https://github.com/pimoroni/bme680-python.git'
+        setup_pylib(workdir + '/bme680-python', url, 'bme680-python', 'library')
+
+    else:
+        print("\n unsupported library %s" % libpackage)
+        exit(1)

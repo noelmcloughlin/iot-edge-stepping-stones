@@ -21,6 +21,12 @@ class MyBoard():
 
         elif name == 'bme680':
             try:
+                import bme680
+            except:
+                print("\nCannot import the bme680 module")
+                exit(1)
+
+            try:
                 self.board = bme680.BME680(bme680.I2C_ADDR_PRIMARY)
             except IOError:
                 try:
