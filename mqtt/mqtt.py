@@ -7,8 +7,6 @@ from subprocess import call
 
 sys.path.append('../lib')
 import osutils as utils
-from mymqtt import controller, subscriber, publisher
-from myboard import myboard
 
 ### BEGIN ####
 
@@ -69,6 +67,10 @@ def main(argv):
         install()
 
     elif action in ("publish", "subscribe") and url_str:
+
+        from mymqtt import controller, subscriber, publisher
+        from myboard import myboard
+
         url = urlparse.urlparse(url_str)
         ctrlr = controller.MyController(action, url)
 
